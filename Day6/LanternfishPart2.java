@@ -16,6 +16,7 @@ public class LanternfishPart2 {
         fish = convertArray(initialArray);
 
         for (days = 0; days < lastDay; days++) {
+            fish = dayPasses(fish);
         }
         
         for (int index = 0; index < fish.length; index++) {
@@ -26,6 +27,8 @@ public class LanternfishPart2 {
 
     }
 
+    // creates a new array of size 9 that counts the number of fish that are in each day 
+    // this way it only has to account for the number of fish in each state rather than every individual fish
     public static double[] convertArray(double[] array) {
         double[] newArray = new double[9];
         for (int index = 0; index < array.length; index++) {
@@ -35,14 +38,18 @@ public class LanternfishPart2 {
         return newArray;
     }
 
-    public static double[] subtractArray(double[] array) {
+    // method used to calculate the number of fish after each new day
+    public static double[] dayPasses(double[] array) {
         double[] newArray = new double[array.length];
 
         for (int index = 0; index < array.length; index++) {
+            // for fish at index 0 their timer resets to 6
+            // all their children get added to index 8
             if (index == 0) {
                 newArray[6] = array[0];
                 newArray[8] = array[0];
             }
+            // adds all other fish to 1 less than their previous index
             else {
                 newArray[index - 1] += array[index];
             }
